@@ -4,7 +4,7 @@
 
 ### config files ###
 server/config.js
-client/config.js
+client/src/config.js
 
 ### Node ###
 # Logs

@@ -1,1 +1,0 @@
-export const GOOGLE_CLIENT_ID="291777220325-0ajmn1sgq4mfqoif626812d275mc1hd2.apps.googleusercontent.com";
