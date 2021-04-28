@@ -1,7 +1,17 @@
-import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 function Header() {
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+
+  console.log(user);
+
+  useEffect(() => {
+    const token = user?.token;
+    // JWT ...
+
+    setUser(JSON.parse(localStorage.getItem('profile')));
+  }, [])
     return (
         <>
         <Container fluid>
@@ -13,10 +23,17 @@ function Header() {
               <a href="/chat/room">Chat Room List</a>
             </Col>
             <Col>
-              <a href="/user/register">Register</a>  
-            </Col>
-            <Col>
-              <a href="/user/login">Login</a>  
+            {user ? (
+              <div>
+                <a>{user.name}</a>
+                <Button>Logout</Button>
+              </div>
+            ) : (
+              <div>
+                <a href="/user/auth">Sign In / Sign Up</a>
+              </div>
+            )}
+              
             </Col>
           </Row>
         </Container>

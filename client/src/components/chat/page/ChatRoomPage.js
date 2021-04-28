@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Container, Row } from 'react-bootstrap';
-import Message from '../Message.js';
+// import Message from '../Message.js';
 import ChatBox from '../ChatBox.js';
 
 function ChatRoomPage({match}) {
