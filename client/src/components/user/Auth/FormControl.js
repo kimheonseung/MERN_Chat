@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 
-function FormControl({ formName, labelName, handleChange, type, placeHolder, isSignUp, required }) {
+function FormControl({ formName, inputName, labelName, handleChange, type, placeHolder, isSignUp, required }) {
 
-    useEffect(() => {
-    }, []);
 
     return (
         <>
@@ -12,6 +10,7 @@ function FormControl({ formName, labelName, handleChange, type, placeHolder, isS
                 <Form.Label column sm="2">{labelName}</Form.Label>
                 <Col sm={(type === 'email' && isSignUp) ? 8 : 10}>
                     <Form.Control 
+                        name={inputName}
                         type={type} 
                         onChange={handleChange} 
                         placeholder={placeHolder} 

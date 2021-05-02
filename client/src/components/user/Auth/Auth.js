@@ -3,31 +3,50 @@ import { Container, Form, Button, Card } from 'react-bootstrap';
 import { GoogleLogin } from 'react-google-login';
 import Icon from './Icon.js';
 import { useDispatch } from 'react-redux';
-import FormControl from './FormControl.js';
 import { useHistory } from 'react-router-dom';
+import FormControl from './FormControl.js';
 import * as config from '../../../config.js';
+import { signIn, signUp } from '../../../actions/Auth.js';
 
+
+const formInitialState = {
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+};
 
 function Auth() {
     // const state = null;
     const [isSignUp, setIsSignUp] = useState(false);
     const [validated, setValidated] = useState(false);
+    const [formData, setFormData] = useState(formInitialState);
     const dispatch = useDispatch();
     const history = useHistory();
 
     const handleSubmit = (e) => {
         const form = e.currentTarget;
-        if(!form.checkValidity()) {
-            e.preventDefault();
-            e.stopPropagation();
+        e.preventDefault();
+
+        if(isSignUp) {
+            dispatch(signUp(formData, history));
+        } else {
+            dispatch(signIn(formData, history));
         }
 
-        setValidated(true);
-        
-    };
-    const handleChange = () => {
 
+
+        // if(!form.checkValidity()) {
+        //     e.preventDefault();
+        //     e.stopPropagation();
+        // }
+
+        // setValidated(true);
     };
+    const handleChange = (e) => {
+        setFormData({...formData, [e.target.name]: e.target.value});
+    }
+
     const switchForm = () => {
         setIsSignUp((prevIsSignUp) => !prevIsSignUp);
     };
@@ -40,8 +59,7 @@ function Auth() {
         /* async try catch */
         try {
             dispatch( { type: 'AUTH', data: { result, token } } );
-            history.push('/');
-            window.location.reload(); 
+            document.location.href = "/";
         } catch (error) {
             console.log(error);
         }
@@ -60,13 +78,13 @@ function Auth() {
                         <Form noValidate validated={validated} onSubmit={handleSubmit}>
                             {
                                 isSignUp &&
-                                <FormControl controlId="formName" labelName="Name" type="text" onChange={handleChange} placeHolder="Enter Name" required />
+                                <FormControl controlId="formName" inputName="name" labelName="Name" type="text" handleChange={handleChange} placeHolder="Enter Name" required />
                             }
-                            <FormControl controlId="formEmail" labelName="Email" type="email" onChange={handleChange} placeHolder="Enter Email" isSignUp={isSignUp} required />
-                            <FormControl controlId="formPassword" labelName="Password" type="password" onChange={handleChange} placeHolder="Enter Password" required />
+                            <FormControl controlId="formEmail" inputName="email" labelName="Email" type="email" handleChange={handleChange} placeHolder="Enter Email" isSignUp={isSignUp} required />
+                            <FormControl controlId="formPassword" inputName="password" labelName="Password" type="password" handleChange={handleChange} placeHolder="Enter Password" required />
                             {
                                 isSignUp &&
-                                <FormControl controlId="formConfirmPassword" labelName="Confirm Password" type="password" onChange={handleChange} placeHolder="Confirm Password" required />
+                                <FormControl controlId="formConfirmPassword" inputName="confirmPassword" labelName="Confirm Password" type="password" handleChange={handleChange} placeHolder="Confirm Password" required />
                             }
                             <Button className="mb-4" block type="submit" color="primary">{isSignUp ? "Sign Up" : "Sign In"}</Button>
                             

@@ -13,6 +13,10 @@ export const getRooms = async (req, res) => {
 
 export const getRoom = async (req, res) => {
     try {
+        console.log('getRoom userId ', req.userId);
+
+        if(!req.userId) return res.json({message: "Unauthenticated"});
+
         let roomNumber = req.params.roomNo;
         console.log('getRoom - ', roomNumber);
         const room = await ChatRoomData.findOne({roomNo: roomNumber});

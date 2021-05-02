@@ -2,8 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ChatRoomPage from '../chat/page/ChatRoomPage.js';
 import ChatRoomListPage from '../chat/page/ChatRoomListPage.js';
-import UserRegister from '../user/Register.js';
-import UserLogin from '../user/Login.js';
 import UserAuth from '../user/Auth/Auth.js';
 
 function Home() {
